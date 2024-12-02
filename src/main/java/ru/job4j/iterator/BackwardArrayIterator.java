@@ -9,12 +9,13 @@ public class BackwardArrayIterator implements Iterator<Integer> {
     public BackwardArrayIterator(int[] data) {
 
         this.data = data;
+        this.point = data.length - 1;
     }
 
     @Override
     public boolean hasNext() {
 
-        return point < data.length;
+        return point < data.length && point > -1;
     }
 
     @Override
@@ -22,13 +23,7 @@ public class BackwardArrayIterator implements Iterator<Integer> {
         if (!hasNext()) {
             throw new NoSuchElementException("point >= data.length");
         }
-        if (point == 0) {
-            for (int i = 0; i < data.length / 2; i++) {
-                int tmp = data[i];
-                data[i] = data[data.length - 1 - i];
-                data[data.length - 1 - i] = tmp;
-            }
-        }
-        return data[point++];
+
+        return data[point--];
     }
 }
