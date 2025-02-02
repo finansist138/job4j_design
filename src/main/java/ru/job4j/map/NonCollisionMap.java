@@ -13,7 +13,7 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
     @Override
     public boolean put(K key, V value) {
         boolean result = false;
-        if ((float) count / capacity >= LOAD_FACTOR) {
+        if (count >= capacity * LOAD_FACTOR) {
             expand();
         }
         int index = getIndex(key);
