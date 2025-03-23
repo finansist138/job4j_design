@@ -6,14 +6,12 @@ import static org.assertj.core.api.Assertions.*;
 class ConfigTest {
 
     @Test
-    void withCommentAndEmptyLine() {
-        String path = "./data/withCommentAndEmptyLine.properties";
+    void withPattern() {
+        String path = "./data/withPattern.properties";
         Config config = new Config(path);
         config.load();
         assertThat(config.value("hibernate.dialect")).
                 isEqualTo("org.hibernate.dialect.PostgreSQLDialect");
-        assertThat(config.value("hibernate.connection.url")).
-                isEqualTo("jdbc:postgresql://127.0.0.1:5432/trackstudio");
     }
 
     @Test
@@ -30,5 +28,21 @@ class ConfigTest {
         Config config = new Config(path);
         config.load();
         assertThat(config.value("key")).isEqualTo("value=1");
+    }
+
+    @Test
+    void breakPattern3() {
+        String path = "./data/breakPattern3.properties";
+        Config config = new Config(path);
+        assertThatThrownBy(config::load)
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void breakPattern4() {
+        String path = "./data/breakPattern4.properties";
+        Config config = new Config(path);
+        assertThatThrownBy(config::load)
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }
