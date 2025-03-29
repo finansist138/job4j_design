@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.*;
 class AnalysisTest {
 
     @Test
-    void unavailable (@TempDir Path tempDir) throws IOException {
+    void unavailable(@TempDir Path tempDir) throws IOException {
         File source = tempDir.resolve("source.txt").toFile();
         try (PrintWriter out = new PrintWriter(source)) {
             out.println("200 10:56:01");
