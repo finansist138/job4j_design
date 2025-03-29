@@ -3,7 +3,7 @@ package ru.job4j.io;
 import java.io.*;
 
 public class Analysis {
-    public void unavailable(String source, String target) {
+    public static void unavailable(String source, String target) {
         try (BufferedReader reader = new BufferedReader(new FileReader(source));
              BufferedWriter writer = new BufferedWriter(new FileWriter(target))) {
             String line;
@@ -13,7 +13,7 @@ public class Analysis {
                 if (rslt == null && ("400".equals(split[0]) || "500".equals(split[0]))) {
                     rslt = split[1];
                 } else if (rslt != null && ("200".equals(split[0]) || "300".equals(split[0]))) {
-                    writer.write(rslt + ";" + split[1] + System.lineSeparator());
+                    writer.write(rslt + ";" + split[1] + ";" + System.lineSeparator());
                     rslt = null;
                 }
             }
