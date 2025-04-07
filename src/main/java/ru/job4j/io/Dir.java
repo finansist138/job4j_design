@@ -17,9 +17,9 @@ public class Dir {
             System.out.println(subfile.getAbsoluteFile());
         }
         String[] files = file.list();
-            for (String name : files) {
-                System.out.println(String.format("Имя файла: %s", name + "; "
-                        + "Размер: " + file.length()));
-            }
+        for (String name : files) {
+            System.out.println(String.format("Имя файла: %s", name + "; "
+                    + "Размер: " + file.length()));
+        }
     }
 }
