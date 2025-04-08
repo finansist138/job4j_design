@@ -22,7 +22,7 @@ public class Search {
     }
 
     public static void validateParameters(String[] args) {
-        if (args.length == 0) {
+        if (args.length != 2) {
             throw new IllegalArgumentException("Корневая папка пуста. Используйте ROOT_FOLDER.");
         }
         Path file = Paths.get(args[0]);
