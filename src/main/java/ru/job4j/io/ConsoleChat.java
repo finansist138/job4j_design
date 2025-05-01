@@ -28,9 +28,9 @@ public class ConsoleChat {
             throw new IllegalArgumentException("Пустое хранилище фраз");
         }
         Scanner scanner = new Scanner(System.in, Charset.defaultCharset());
-        System.out.println("Добро пожаловать в чат! Для выхода из приложения, напишите 'закончить', " +
-                "если хотите, чтобы чат-бот замолчал, напишите 'стоп', для продолжение общения с чат-ботом, " +
-                "напишите 'продолжить'");
+        System.out.println("Добро пожаловать в чат! Для выхода из приложения, напишите 'закончить', "
+                + "если хотите, чтобы чат-бот замолчал, напишите 'стоп', для продолжение общения с чат-ботом, "
+                + "напишите 'продолжить'");
         String userInput = "";
         while (!OUT.equals(userInput)) {
                 userInput = scanner.nextLine();
@@ -61,8 +61,7 @@ public class ConsoleChat {
             reader.lines()
                     .map(string -> string + System.lineSeparator())
                     .forEach(phrases::add);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return phrases;
