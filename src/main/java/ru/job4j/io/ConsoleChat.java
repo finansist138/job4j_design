@@ -24,34 +24,39 @@ public class ConsoleChat {
     public void run() {
         List<String> log = new ArrayList<>();
         List<String> phrases = readPhrases();
+        String greeting = "Добро пожаловать в чат! Для выхода из приложения, напишите 'закончить', "
+                + "если хотите, чтобы чат-бот замолчал, напишите 'стоп', для продолжение общения с чат-ботом, "
+                + "напишите 'продолжить'";
+        String stop = "Чат приостановлен. Напишите 'продолжить' для возобновления.";
+        String continueChat = "Чат возобновлен.";
+        String bue = "Программа завершена";
         if (phrases.isEmpty()) {
             throw new IllegalArgumentException("Пустое хранилище фраз");
         }
         Scanner scanner = new Scanner(System.in, Charset.defaultCharset());
-        System.out.println("Добро пожаловать в чат! Для выхода из приложения, напишите 'закончить', "
-                + "если хотите, чтобы чат-бот замолчал, напишите 'стоп', для продолжение общения с чат-ботом, "
-                + "напишите 'продолжить'");
+        System.out.println(greeting);
         String userInput = "";
         while (!OUT.equals(userInput)) {
                 userInput = scanner.nextLine();
                 log.add("Вы: " + userInput);
                 if (STOP.equals(userInput)) {
                     isActive = false;
-                    log.add("Чат приостановлен. Напишите 'продолжить' для возобновления.");
-                    System.out.println("Чат приостановлен. Напишите 'продолжить' для возобновления.");
+                    log.add(stop);
+                    System.out.println(stop);
                 } else if (CONTINUE.equals(userInput)) {
                     isActive = true;
-                    log.add("Чат возобновлен.");
-                    System.out.println("Чат возобновлен.");
+                    log.add(continueChat);
+                    System.out.println(continueChat);
                 }
+            int random = new Random().nextInt(phrases.size());
                 if (isActive) {
-                    String phrase = phrases.get(new Random().nextInt(phrases.size()));
+                    String phrase = phrases.get(random);
                     System.out.println("Бот: " + phrase);
                     log.add("Бот: " + phrase);
                 }
         }
-        System.out.println("Программа завершена");
-        System.out.println(log.add("Программа завершена"));
+        System.out.println(bue);
+        log.add(bue);
         saveLog(log);
     }
 
@@ -59,7 +64,6 @@ public class ConsoleChat {
         List<String> phrases = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(botAnswers, StandardCharsets.UTF_8))) {
             reader.lines()
-                    .map(string -> string + System.lineSeparator())
                     .forEach(phrases::add);
         } catch (IOException e) {
             e.printStackTrace();
