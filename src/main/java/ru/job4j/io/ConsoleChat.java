@@ -36,7 +36,7 @@ public class ConsoleChat {
         Scanner scanner = new Scanner(System.in, Charset.defaultCharset());
         System.out.println(greeting);
         String userInput = "";
-        int random = new Random().nextInt(phrases.size());
+        Random random = new Random();
         while (!OUT.equals(userInput)) {
                 userInput = scanner.nextLine();
                 log.add("Вы: " + userInput);
@@ -50,7 +50,7 @@ public class ConsoleChat {
                     System.out.println(continueChat);
                 }
                 if (isActive) {
-                    String phrase = phrases.get(random);
+                    String phrase = phrases.get(random.nextInt(phrases.size()));
                     System.out.println("Бот: " + phrase);
                     log.add("Бот: " + phrase);
                 }
