@@ -1,0 +1,9 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<car vinCode="123456789" model="Toyota Camry" isAutoKpp="true">
+    <driver name="Artem" surname="Ivanov"/>
+    <servicesHistory>
+        <serviceHistory>12.02.2024 - oil change</serviceHistory>
+        <serviceHistory>10.06.2025 - bumper painting</serviceHistory>
+        <serviceHistory>15.06.2025 - balancing</serviceHistory>
+    </servicesHistory>
+</car>
