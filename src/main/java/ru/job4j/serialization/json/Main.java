@@ -1,32 +1,30 @@
 package ru.job4j.serialization.json;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
+import java.io.StringReader;
+import java.io.StringWriter;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
-        final Car car = new Car(123456789, "Toyota Camry", true, new Driver("Artem", "Ivanov"),
+        Car car = new Car(123456789, "Toyota Camry", true, new Driver("Artem", "Ivanov"),
                  new String[] {"12.02.2024 - oil change", "10.06.2025 - bumper painting"});
 
-        final Gson gson = new GsonBuilder().create();
-        System.out.println(gson.toJson(car));
-
-        final String carJson =
-                "{"
-                        + "\"vinCode\":\"123456789\","
-                        + "\"model\":\"Toyota Camry\","
-                        + "\"isAutoKpp\":true,"
-                        + "\"driver\":"
-                        + "{"
-                        + "\"name\":\"Artem\","
-                        + "\"surname\":\"Ivanov\""
-                        + "},"
-                        + "\"serviceHistory\":"
-                        + "[\"12.02.2024 - oil change\",\"10.06.2025 - bumper painting\",\"15.06.2025 - balancing\"]"
-                        + "}";
-
-        final Car carFromJson = gson.fromJson(carJson, Car.class);
-        System.out.println(carFromJson);
+        JAXBContext context = JAXBContext.newInstance(Car.class);
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        String xml = "";
+        try (StringWriter writer = new StringWriter()) {
+            marshaller.marshal(car, writer);
+            xml = writer.getBuffer().toString();
+            System.out.println(xml);
+        }
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+        try (StringReader reader = new StringReader(xml)) {
+            Car result = (Car) unmarshaller.unmarshal(reader);
+            System.out.println(result);
+        }
     }
 }

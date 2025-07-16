@@ -1,8 +1,16 @@
 package ru.job4j.serialization.json;
 
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "driver")
 public class Driver {
-    private final String name;
-    private final String surname;
+    @XmlAttribute
+    private String name;
+    private String surname;
+
+    public Driver() {
+    }
 
     public Driver(String name, String surname) {
         this.name = name;
