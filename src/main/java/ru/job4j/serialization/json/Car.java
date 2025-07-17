@@ -4,6 +4,8 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.annotation.*;
+import org.json.JSONObject;
+
 import java.io.StringWriter;
 import java.util.Arrays;
 
@@ -31,6 +33,26 @@ public class Car {
         this.serviceHistory = serviceHistory;
     }
 
+    public int getVinCode() {
+        return vinCode;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public boolean isAutoKpp() {
+        return isAutoKpp;
+    }
+
+    public String[] getServiceHistory() {
+        return serviceHistory;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
     @Override
     public String toString() {
         return "Car{"
@@ -45,15 +67,13 @@ public class Car {
     public static void main(String[] args) throws JAXBException {
         final Car car = new Car(123456789, "Toyota Camry", true, new Driver("Artem", "Ivanov"),
                 new String[] {"12.02.2024 - oil change", "10.06.2025 - bumper painting"});
-        JAXBContext context = JAXBContext.newInstance(Car.class);
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        try (StringWriter writer = new StringWriter()) {
-            marshaller.marshal(car, writer);
-            String result = writer.getBuffer().toString();
-            System.out.println(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("vinCode", car.getVinCode());
+        jsonObject.put("model", car.getModel());
+        jsonObject.put("isAutoKpp", car.isAutoKpp());
+        jsonObject.put("driver", car.getDriver());
+        jsonObject.put("serviceHistory", car.getServiceHistory());
+        System.out.println(jsonObject.toString());
+        System.out.println(new JSONObject(car).toString());
     }
 }
