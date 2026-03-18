@@ -1,0 +1,10 @@
+CREATE TABLE vins(
+id SERIAL PRIMARY KEY,
+number VARCHAR(200)
+);
+
+CREATE TABLE cars(
+id SERIAL PRIMARY KEY,
+brand VARCHAR(200),
+vins_id INT REFERENCES vins(id) UNIQUE
+);
