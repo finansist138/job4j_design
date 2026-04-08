@@ -1,8 +1,11 @@
+CREATE VIEW body_name_suv 
+AS
 SELECT c.name AS "Марка авто", b.name AS "Кузов авто", e.name AS Двигатель, t.name AS КПП
 FROM cars AS c
 LEFT JOIN car_bodies AS b ON c.body_id = b.id
 LEFT JOIN car_engines AS e ON c.engine_id = e.id
-LEFT JOIN car_transmissions AS t ON c.transmission_id = t.id;
+LEFT JOIN car_transmissions AS t ON c.transmission_id = t.id
+WHERE b.name = 'Внедорожник';
 
 SELECT b.name AS "Неиспользуемый кузов авто"
 FROM car_bodies AS b
