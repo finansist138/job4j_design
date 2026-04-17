@@ -1,11 +1,3 @@
-CREATE TRIGGER tax_trigger_after
-    AFTER INSERT
-    ON products
-    REFERENCING NEW TABLE AS
-    inserted
-    FOR EACH STATEMENT
-    EXECUTE PROCEDURE tax();
-
 CREATE
     OR REPLACE FUNCTION tax()
 RETURNS trigger AS
@@ -19,21 +11,27 @@ END;
 $$
     LANGUAGE 'plpgsql';
 
-CREATE TRIGGER tax_trigger_before
-    BEFORE INSERT
+CREATE TRIGGER tax_trigger_after
+    AFTER INSERT
     ON products
-    FOR EACH ROW
-    EXECUTE PROCEDURE tax_before();
+    REFERENCING NEW TABLE AS
+    inserted
+    FOR EACH STATEMENT
+    EXECUTE PROCEDURE tax();
 
 CREATE
 OR REPLACE FUNCTION tax_before()
     RETURNS trigger AS
 $$
 BEGIN
-    UPDATE products
-    SET price = price * 1.22
-      AND id = new.id;
+    NEW.price := NEW.price * 1.22;
     RETURN NEW;
 END;
 $$
     LANGUAGE 'plpgsql';
+
+CREATE TRIGGER tax_trigger_before
+    BEFORE INSERT
+    ON products
+    FOR EACH ROW
+    EXECUTE PROCEDURE tax_before();
