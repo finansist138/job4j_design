@@ -37,7 +37,7 @@ SELECT name FROM movies;
 SELECT title FROM books
 EXCEPT
 SELECT name FROM movies
-UNION
+UNION ALL
 SELECT name FROM movies
 EXCEPT
 SELECT title FROM books;
