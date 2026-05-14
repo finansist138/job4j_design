@@ -1,0 +1,10 @@
+CREATE TABLE owner(
+id SERIAL PRIMARY KEY,
+name VARCHAR(200)
+);
+
+CREATE TABLE cars(
+id SERIAL PRIMARY KEY,
+brand VARCHAR(200),
+owner_id INT REFERENCES owner(id)
+);
