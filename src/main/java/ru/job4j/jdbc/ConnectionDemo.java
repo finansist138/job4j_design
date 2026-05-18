@@ -12,11 +12,12 @@ public class ConnectionDemo {
         Config config = new Config("data/app.properties");
         config.load();
 
-        Class.forName("org.postgresql.Driver");
-        String url = "jdbc:postgresql://localhost:5432/idea_db";
-        String login = "postgres";
-        String password = "password";
+        String driver = config.value("driver");
+        String url = config.value("url");
+        String login = config.value("username");
+        String password = config.value("password");
 
+        Class.forName(driver);
         try (Connection connection = DriverManager.getConnection(url, login, password)) {
             DatabaseMetaData metaData = connection.getMetaData();
             System.out.println(metaData.getUserName());
